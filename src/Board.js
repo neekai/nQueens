@@ -26,6 +26,7 @@
 
     togglePiece: function(rowIndex, colIndex) {
       this.get(rowIndex)[colIndex] = + !this.get(rowIndex)[colIndex];
+      console.log('this is column', this._getFirstRowColumnIndexForMajorDiagonalOn(0, 0))
       this.trigger('change');
     },
 
@@ -79,11 +80,30 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
-    },
+      var currentRow = this.get(rowIndex);
+      var counter = 0; 
+      // console.log('current row', currentRow)
+      for(var i = 0; i < currentRow.length; i++){
+        //if there is something in the row
+        if(currentRow[i] === 1){
+          counter += 1; 
+          // console.log('counter', counter)
+        }
+      }
+        if(counter > 1){
+          return true;
+        } else{
+          return false;
+        }
+      },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+      for (var i = 0; i < this.get('n'); i++){
+        if(this.hasRowConflictAt(i)){
+          return true;
+        }
+      }
       return false; // fixme
     },
 
@@ -94,11 +114,28 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+     var counter = 0; 
+     var currentCol = this.get(colIndex);
+     // console.log('current column', currentCol)
+      for(var i = 0; i < currentCol.length; i++){
+        if(currentCol[colIndex] === 1){
+          counter += 1;
+          // console.log('counter', counter)
+        }
+      } 
+      if(counter > 1){
+        return true;
+      } 
+        return false;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      for(var i = 0; i < this.get('n'); i++){
+        if(this.hasColConflictAt(i)){
+          return true;
+        }
+      }
       return false; // fixme
     },
 
@@ -108,12 +145,53 @@
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
-    hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+    let board = this.rows()
+    let counter = 0;
+    let colIndex, rowIndex, coords
+    var temp = majorDiagonalColumnIndexAtFirstRow; 
+    console.log('test', this.get(majorDiagonalColumnIndexAtFirstRow))
+    for(let i = 0; i < this.get('n'); i++) {
+      rowIndex = i;
+      for(let j = 0; j < this.get('n'); j++) {
+        colIndex = j; coords = colIndex - rowIndex;
+        console.log( 'rowIndex',rowIndex, 'colIndex', colIndex, 'coords', coords, 'majorDiagonalColumnIndexAtFirstRow', temp)
+        if (coords === temp) {
+          counter++;
+        }    
+      }
+    }
+    if(counter > 4) {
+      return true;
+    }
+    // console.log('this is columnIndex - rowIndex',coords, majorDiagonalColumnIndexAtFirstRow, 'this is row', n)        
+    //  var counter = 0; 
+    //  var temp = majorDiagonalColumnIndexAtFirstRow;
+    //  var currentDiag = this.get(majorDiagonalColumnIndexAtFirstRow);
+    //  console.log('this is current diagonal', currentDiag)
+    //   let check;
+    //   for(var i = 0; i < this.get('n'); i++){
+    //     console.log('this is the current position being checked', currentDiag[i], 'this is n', n)
+    //     if(currentDiag !== undefined && currentDiag[i] === 1){
+    //       counter = i;
+    //       temp++;
+    //       // console.log('counter', counter)
+    //     }
+    //     if(temp > majorDiagonalColumnIndexAtFirstRow) {
+    //       if(currentDiag[counter++] === 1) {
+    //         return true;
+    //       }
+    //     }
+    //   } 
+        return false;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
+      // for(let i = 0; i < n; i++) {
+      // if(hasMajorDiagonalConflictAt(n[i])) {
+      //   return true;
+      // }
       return false; // fixme
     },
 
