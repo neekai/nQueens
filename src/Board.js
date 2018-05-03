@@ -114,18 +114,18 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-     var counter = 0; 
+     var counter = 0;
      var currentCol = this.get(colIndex);
-     // console.log('current column', currentCol)
-      for(var i = 0; i < currentCol.length; i++){
-        if(currentCol[colIndex] === 1){
-          counter += 1;
-          // console.log('counter', counter)
-        }
-      } 
-      if(counter > 1){
+     let obj = this.attributes;
+     for (let key in obj) {
+      if(obj[key][colIndex] === 1) {
+        counter++;
+      }
+      if(counter > 1) {
         return true;
-      } 
+      }
+     }
+
         return false;
     },
 
@@ -146,53 +146,52 @@
     //
     // test if a specific major diagonal on this board contains a conflict
 hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-    let board = this.rows()
-    let counter = 0;
-    let colIndex, rowIndex, coords
-    var temp = majorDiagonalColumnIndexAtFirstRow; 
-    console.log('test', this.get(majorDiagonalColumnIndexAtFirstRow))
-    for(let i = 0; i < this.get('n'); i++) {
-      rowIndex = i;
-      for(let j = 0; j < this.get('n'); j++) {
-        colIndex = j; coords = colIndex - rowIndex;
-        console.log( 'rowIndex',rowIndex, 'colIndex', colIndex, 'coords', coords, 'majorDiagonalColumnIndexAtFirstRow', temp)
-        if (coords === temp) {
-          counter++;
-        }    
+  var counter = 0;
+  let obj = this.attributes;
+  console.log('obj', obj)
+  for (let key in obj) {
+    if(obj[key][majorDiagonalColumnIndexAtFirstRow] === 1) {
+      if(obj[key][majorDiagonalColumnIndexAtFirstRow + 1] ===1) {
+        counter++;
       }
+      
     }
-    if(counter > 4) {
-      return true;
-    }
-    // console.log('this is columnIndex - rowIndex',coords, majorDiagonalColumnIndexAtFirstRow, 'this is row', n)        
-    //  var counter = 0; 
-    //  var temp = majorDiagonalColumnIndexAtFirstRow;
-    //  var currentDiag = this.get(majorDiagonalColumnIndexAtFirstRow);
-    //  console.log('this is current diagonal', currentDiag)
-    //   let check;
-    //   for(var i = 0; i < this.get('n'); i++){
-    //     console.log('this is the current position being checked', currentDiag[i], 'this is n', n)
-    //     if(currentDiag !== undefined && currentDiag[i] === 1){
-    //       counter = i;
-    //       temp++;
-    //       // console.log('counter', counter)
-    //     }
-    //     if(temp > majorDiagonalColumnIndexAtFirstRow) {
-    //       if(currentDiag[counter++] === 1) {
-    //         return true;
-    //       }
-    //     }
-    //   } 
+  }
+  
+  
+  //   // let board = this.rows()
+  //   // let counter = 0;
+  //   // let colIndex, rowIndex, coords
+  //   // var temp = majorDiagonalColumnIndexAtFirstRow; 
+  //   // console.log('test', this.get(majorDiagonalColumnIndexAtFirstRow))
+  //   // for(let i = 0; i < this.get('n'); i++) {
+  //   //   rowIndex = i;
+  //   //   for(let j = 0; j < this.get('n'); j++) {
+  //   //     colIndex = j; coords = colIndex - rowIndex;
+  //   //     // console.log('getFirstRowColumnIndexForMajorDiagonalOn', this._getFirstRowColumnIndexForMajorDiagonalOn(rowIndex, colIndex))
+  //   //     console.log('element at start of diagonal', board[i][j], 'element at next diagonal position', board[i+1][j + 1])
+  //   //     // console.log( 'rowIndex',rowIndex, 'colIndex', colIndex, 'coords', coords, 'majorDiagonalColumnIndexAtFirstRow', temp)
+  //   //     if (board[i][j] ===1 && board[i + 1][j + 1] === 1) {
+  //   //       counter++;
+  //   //     }    
+  //   //   }
+  //   // }
+  //   // if(counter > 1) {
+  //   //   return true;
+  //   // }
+    
         return false;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
+      // let n = this.get('n')
       // for(let i = 0; i < n; i++) {
-      // if(hasMajorDiagonalConflictAt(n[i])) {
+      // if(this.hasMajorDiagonalConflictAt(i)) {
       //   return true;
       // }
       return false; // fixme
+      // }
     },
 
 
