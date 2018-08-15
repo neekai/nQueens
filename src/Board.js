@@ -1,6 +1,4 @@
-// This file is a Backbone Model (don't worry about what that means)
 // It's part of the Board Visualizer
-// The only portions you need to work on are the helper functions (below)
 
 (function() {
 
@@ -61,24 +59,7 @@
                 0 <= colIndex && colIndex < this.get('n')
             );
         },
-
-
-        /*
-                 _             _     _
-             ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
-            / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
-            \__ \ || (_| | |  | |_  | | | |  __/ | |  __/_
-            |___/\__\__,_|_|   \__| |_| |_|\___|_|  \___(_)
-
-         */
-        /*=========================================================================
-        =                 TODO: fill in these Helper Functions                    =
-        =========================================================================*/
-
-        // ROWS - run from left to right
-        // --------------------------------------------------------------
-        //
-        // test if a specific row on this board contains a conflict
+        
         hasRowConflictAt: function(rowIndex) {
             var currentRow = this.get(rowIndex);
             var counter = 0;
@@ -96,23 +77,15 @@
                 return false;
             }
         },
-
-        // test if any rows on this board contain conflicts
         hasAnyRowConflicts: function() {
             for (var i = 0; i < this.get('n'); i++) {
                 if (this.hasRowConflictAt(i)) {
                     return true;
                 }
             }
-            return false; // fixme
+            return false; 
         },
-
-
-
-        // COLUMNS - run from top to bottom
-        // --------------------------------------------------------------
-        //
-        // test if a specific column on this board contains a conflict
+        
         hasColConflictAt: function(colIndex) {
             var counter = 0;
             var currentCol = this.get(colIndex);
@@ -128,8 +101,6 @@
 
             return false;
         },
-
-        // test if any columns on this board contain conflicts
         hasAnyColConflicts: function() {
             for (var i = 0; i < this.get('n'); i++) {
                 if (this.hasColConflictAt(i)) {
@@ -138,13 +109,6 @@
             }
             return false; // fixme
         },
-
-
-
-        // Major Diagonals - go from top-left to bottom-right
-        // --------------------------------------------------------------
-        //
-        // test if a specific major diagonal on this board contains a conflict
         hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
           var size = this.get('n');
           var count = 0;
@@ -157,26 +121,6 @@
             }
           }
           return count > 1;
-            // var counter = 0;
-            // let obj = this.attributes;
-            // for (let key in obj) {
-            //   console.log('this is key',obj[key])
-            //   if(typeof key === 'number') {
-            //     if (obj[key][majorDiagonalColumnIndexAtFirstRow] === 1) {
-            //       console.log('hi there')
-            //       counter++;
-                  
-            //         // if (obj[key + 1][majorDiagonalColumnIndexAtFirstRow + 1] === 1) {
-            //         //     counter++;
-            //         // }
-            //     }
-            //   }
-            //   majorDiagonalColumnIndexAtFirstRow++;
-            //   if(counter > 1) {
-            //     return true;
-            //   }
-            // }
-
         },
 
         // test if any major diagonals on this board contain conflicts
@@ -187,14 +131,8 @@
                     return true;
                 }
             }
-            return false; // fixme
+            return false; 
         },
-
-
-
-        // Minor Diagonals - go from top-right to bottom-left
-        // --------------------------------------------------------------
-        //
         // test if a specific minor diagonal on this board contains a conflict
         hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
           var size = this.get('n');
@@ -210,7 +148,7 @@
           return count > 1;
           
           
-            return false; // fixme
+            return false;
         },
 
         // test if any minor diagonals on this board contain conflicts
@@ -224,10 +162,6 @@
             
             return false; // fixme
         }
-
-        /*--------------------  End of Helper Functions  ---------------------*/
-
-
     });
 
     var makeEmptyMatrix = function(n) {
